@@ -1,0 +1,54 @@
+import "package:flutter/material.dart";
+import "package:font_awesome_flutter/font_awesome_flutter.dart";
+
+// Paddings
+const EdgeInsets defaultPaddingBody = EdgeInsets.all(16);
+const EdgeInsets defaultPaddingCard = EdgeInsets.all(16);
+const EdgeInsets defaultPaddingDrawer = EdgeInsets.all(16);
+
+// Icons
+const emailIcon = FontAwesomeIcons.solidEnvelope;
+const passwordIcon = FontAwesomeIcons.lock;
+const visibilityOffIcon = FontAwesomeIcons.solidEyeSlash;
+const visibilityIcon = FontAwesomeIcons.solidEye;
+const homeIcon = FontAwesomeIcons.house;
+const cashFlowIcon = FontAwesomeIcons.rotate;
+const orderIcon = FontAwesomeIcons.filePen;
+const registerIcon = FontAwesomeIcons.circlePlus;
+const categoryIcon = FontAwesomeIcons.tag;
+const descriptionIcon = FontAwesomeIcons.solidNoteSticky;
+const clientIcon = FontAwesomeIcons.solidHandshake;
+const supplierIcon = FontAwesomeIcons.truck;
+const productIcon = FontAwesomeIcons.boxesPacking;
+const configIcon = FontAwesomeIcons.gear;
+const logoutIcon = FontAwesomeIcons.rightToBracket;
+const filterIcon = FontAwesomeIcons.filter;
+const addIcon = FontAwesomeIcons.plus;
+const drawerIcon = FontAwesomeIcons.bars;
+const optionIcon = FontAwesomeIcons.ellipsisVertical;
+const arrowLeftIcon = FontAwesomeIcons.arrowLeft;
+const arrowRightIcon = FontAwesomeIcons.arrowRight;
+const arrowLeftLongIcon = FontAwesomeIcons.leftLong;
+const incomeIcon = FontAwesomeIcons.arrowTrendUp;
+const expenseIcon = FontAwesomeIcons.arrowTrendDown;
+const editIcon = FontAwesomeIcons.solidPenToSquare;
+const editOutlineIcon = FontAwesomeIcons.penToSquare;
+const trashIcon = FontAwesomeIcons.trashCan;
+const observationIcon = FontAwesomeIcons.solidRectangleList;
+const observationOutlineIcon = FontAwesomeIcons.rectangleList;
+const coinsIcon = FontAwesomeIcons.coins;
+const typeOfPaymentIcon = FontAwesomeIcons.wallet;
+const dueDateIcon = FontAwesomeIcons.solidCalendarXmark;
+const settlementDateIcon = FontAwesomeIcons.solidCalendarCheck;
+const calendarIcon = FontAwesomeIcons.solidCalendarDays;
+const statusIcon = FontAwesomeIcons.solidCircleCheck;
+const searchIcon = FontAwesomeIcons.magnifyingGlass;
+const closeIcon = FontAwesomeIcons.xmark;
+const chevronRightIcon = FontAwesomeIcons.chevronRight;
+const chevronUpIcon = FontAwesomeIcons.chevronUp;
+const chevronDownIcon = FontAwesomeIcons.chevronDown;
+const warningIcon = FontAwesomeIcons.triangleExclamation;
+const userIcon = FontAwesomeIcons.solidUser;
+const themeIcon = FontAwesomeIcons.palette;
+const bellIcon = FontAwesomeIcons.solidBell;
+const databaseIcon = FontAwesomeIcons.database;
