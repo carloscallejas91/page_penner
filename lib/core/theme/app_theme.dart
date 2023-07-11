@@ -42,6 +42,11 @@ class CustomThemeData {
         scrim: Color(0xFF000000),
       ),
       textTheme: textTheme,
+      inputDecorationTheme: const InputDecorationTheme(
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        prefixIconColor: Color(0xFF6750A4),
+        suffixIconColor: Color(0xFF6750A4),
+      ),
     );
   }
 

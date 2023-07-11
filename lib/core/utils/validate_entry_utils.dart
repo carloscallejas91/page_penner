@@ -22,17 +22,12 @@ class ValidateEntryUtils {
     }
   }
 
-  String? validatePositiveValue(String value) {
+  String? validateName(String value) {
+    final RegExp regex = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]');
     if (value.isEmpty) {
       return "Campo não pode estar vazio.";
-    }
-
-    final double convertValue = double.parse(
-      value.replaceAll("R\$", "").replaceAll(".", "").replaceAll(",", "."),
-    );
-
-    if (convertValue <= 0) {
-      return "Valor não pode ser igual a zero.";
+    } else if (regex.hasMatch(value)) {
+      return "Nome inválido.";
     } else {
       return null;
     }

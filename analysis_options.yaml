@@ -51,7 +51,7 @@ linter:
     no_duplicate_case_values: true
     use_key_in_widget_constructors: true
     valid_regexps: true
-    avoid_catches_without_on_clauses: true
+    avoid_catches_without_on_clauses: false
     avoid_unnecessary_containers: true
     avoid_unused_constructor_parameters: true
     await_only_futures: true
@@ -61,7 +61,7 @@ linter:
     prefer_final_in_for_each: true
     prefer_final_locals: true
     prefer_final_parameters: false
-    require_trailing_commas: true
+    require_trailing_commas: false
     avoid_redundant_argument_values: true
     use_super_parameters: true
     avoid_dynamic_calls: true
