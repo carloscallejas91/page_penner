@@ -64,10 +64,12 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                               validator: (value) => controller
                                   .validateEntryUtils
                                   .validateEmail(value!),
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
                                 labelText: "E-mail",
                                 hintText: "exemplo@email.com",
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   FontAwesomeIcons.solidEnvelope,
                                 ),
                               ),

@@ -1,0 +1,5 @@
+Firebase configuration file lib\firebase_options.dart generated successfully with the following Firebase apps:
+
+Platform  Firebase App Id
+android   1:821539417839:android:d2aa04dcea9f9d6967b51a
+ios       1:821539417839:ios:2328a394202ec33667b51a

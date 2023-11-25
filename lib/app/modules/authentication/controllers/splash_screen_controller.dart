@@ -1,9 +1,11 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:get/get.dart";
 import "package:page_penner/data/services/auth/auth_service.dart";
 
 class SplashScreenController extends GetxController {
   // services
   final AuthService _authService = AuthService();
+  late User? _user;
 
   @override
   void onInit() {
@@ -12,7 +14,8 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> _isOnline() async {
-    if (await _authService.userIsLoggedIn() != null) goToHome();
+    _user = await _authService.userIsLoggedIn();
+    if (_user != null) goToHome();
   }
 
   void goToNewAccount() {
@@ -24,6 +27,9 @@ class SplashScreenController extends GetxController {
   }
 
   void goToHome() {
-    Get.offAllNamed("/home");
+    Get.offAllNamed("/home", arguments: [
+      false,
+      _user,
+    ]);
   }
 }

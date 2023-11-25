@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "821539417839",
+    "firebase_url": "https://page-penner-default-rtdb.firebaseio.com",
+    "project_id": "page-penner",
+    "storage_bucket": "page-penner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821539417839:android:d2aa04dcea9f9d6967b51a",
+        "android_client_info": {
+          "package_name": "com.page_penner.page_penner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821539417839-3tqu1o1mia2275kl76pg9oe884pecqj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_24BIR-TfTK_W795gobZonD7PesvZV-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821539417839-3tqu1o1mia2275kl76pg9oe884pecqj6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "821539417839-9pa2dun89ddfjhmkn6p55jd5uuu9bqls.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pagepenner.pagePenner"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

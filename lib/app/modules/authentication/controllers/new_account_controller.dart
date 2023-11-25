@@ -131,7 +131,7 @@ class NewAccountController extends GetxController {
   void goToHome() {
     Get.offAllNamed("/home", arguments: [
       true,
-      _userCredential,
+      _userCredential!.user,
       userNameController.text,
       profileImageFile.value.path
     ]);

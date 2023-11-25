@@ -6,4 +6,6 @@ abstract class Routes {
   static const String NEW_ACCOUNT = "/new_account";
   static const String LOGIN = "/login";
   static const String HOME = "/home";
+  static const String BOOK_INFORMATION = "/book_information";
+  static const String MY_BOOK = "/my_book";
 }

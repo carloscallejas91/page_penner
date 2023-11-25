@@ -31,17 +31,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # core
+  url_launcher: ^6.1.12
+  uuid: ^3.0.7
 
-  path_provider: ^2.0.15
+  # ui
   image_picker: ^0.8.7+5
   shimmer: ^2.0.0
   syncfusion_flutter_datepicker: 20.4.44
+  google_nav_bar: ^5.0.6
+  flutter_html: ^3.0.0-beta.2
 
+  # state control
   get: ^4.6.5
 
+  # api
+  dio: ^5.2.1+1
 
+  # icons, fonts and image
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.3.0
+  line_icons: ^2.0.3
 
   # firebase
   firebase_auth: ^4.6.3
@@ -50,8 +60,11 @@ dependencies:
   firebase_storage: ^11.2.4
 
 dev_dependencies:
-  lint: ^2.0.1
+  # analyser
+  lint: ^2.1.2
   flutter_lints: ^2.0.0
+
+  # test
   flutter_test:
     sdk: flutter
 
@@ -70,8 +83,20 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/background_image.jpg
-  #   - images/a_dot_ham.jpeg
+    - assets/images/img_background.jpg
+    - assets/images/img_image_not_found.jpg
+    - assets/images/img_image_not_found_variant.jpg
+    - assets/images/img_result_not_found.jpg
+    - assets/images/img_wishlist_result_not_found.jpg
+    - assets/images/img_card_book.jpg
+    - assets/images/img_background_about_book.jpg
+    - assets/images/img_card_book.jpg
+    - assets/images/examples/book_cover_1.jpg
+    - assets/images/examples/book_cover_2.jpg
+    - assets/images/examples/book_cover_3.jpg
+    - assets/images/examples/book_cover_4.jpg
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

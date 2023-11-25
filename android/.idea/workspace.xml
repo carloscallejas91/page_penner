@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="40cff52d-a5b2-4253-9e06-d4808a86d763" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../assets/images/background_image.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/bindings/forget_password_binding.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/bindings/login_binding.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/bindings/new_account_binding.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/bindings/splash_screen_binding.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/controllers/forget_password_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/controllers/login_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/controllers/new_account_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/controllers/splash_screen_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/views/forget_password_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/views/login_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/views/new_account_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/modules/authentication/views/splash_screen_view.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/widgets/button/cc_elevated_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/widgets/button/cc_text_button.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/widgets/dialog/cc_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/widgets/snack_bar/cc_snack_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/app/widgets/template/cc_page_without_app_bar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/core/application/app_dependencies.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/core/application/page_penner_app.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/core/extensions/text_extension.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/core/theme/colors.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/core/utils/modal_manager_utils.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/data/models/profile_user.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/data/services/auth/auth_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/data/services/realtime_database/request/user_profile_update_request.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/data/services/realtime_database/user_profile_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/data/services/storage/storage_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/integrations/firebase/firebase_integration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/app/modules/home/controllers/home_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/app/modules/home/controllers/home_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/core/theme/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/theme/app_theme.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/core/utils/validate_entry_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/utils/validate_entry_utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/core/values/strings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/core/values/strings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/routes/app_pages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/routes/app_pages.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/routes/app_routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/routes/app_routes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../test/widget_test.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2SOm5Y6pVmA6YzHjTlvasEPPDaW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40cff52d-a5b2-4253-9e06-d4808a86d763" name="Default Changelist" comment="" />
+      <created>1689025819416</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689025819416</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="271" key="FileChooserDialogImpl" timestamp="1689026414598">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="740" y="271" key="FileChooserDialogImpl/-1080.0.1080.1872/0.0.1920.1032@0.0.1920.1032" timestamp="1689026414598" />
+    <state x="616" y="238" width="672" height="677" key="run.anything.popup" timestamp="1689026365137">
+      <screen x="0" y="0" width="1920" height="1032" />
+    </state>
+    <state x="616" y="238" width="672" height="677" key="run.anything.popup/-1080.0.1080.1872/0.0.1920.1032@0.0.1920.1032" timestamp="1689026365137" />
+  </component>
+</project>

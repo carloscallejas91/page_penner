@@ -64,14 +64,17 @@ class LoginView extends GetView<LoginController> {
                               validator: (value) => controller
                                   .validateEntryUtils
                                   .validateEmail(value!),
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
                                 labelText: "E-mail",
                                 hintText: "exemplo@email.com",
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   FontAwesomeIcons.solidEnvelope,
                                 ),
                               ),
                             ),
+                            const SizedBox(height: 16),
                             Obx(
                               () => TextFormField(
                                 controller: controller.passwordController,
@@ -81,6 +84,8 @@ class LoginView extends GetView<LoginController> {
                                     .validateEntryUtils
                                     .validatePassword(value!),
                                 decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
                                   labelText: "Senha",
                                   hintText: "Mi@123456",
                                   prefixIcon: const Icon(

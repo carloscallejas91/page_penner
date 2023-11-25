@@ -67,17 +67,18 @@ mixin CCDialog {
   }
 
   static void dialogNeutralAndPositiveButton({
+    required BuildContext context,
     required String title,
-    required Color titleColor,
+    Color? titleColor,
     IconData? icon,
-    required Color iconColor,
+    Color? iconColor,
     double iconSize = 22,
     required String contentText,
     String nameNeutralButton = "Cancelar",
-    required Color colorNeutralButton,
+    Color? colorNeutralButton,
     required Function() onPressedNeutralButton,
     String namePositiveButton = "Ok",
-    required Color colorPositiveButton,
+    Color? colorPositiveButton,
     required Function() onPressedPositiveButton,
   }) {
     Get.dialog(
@@ -87,24 +88,24 @@ mixin CCDialog {
           title: titleSession(
             title: title,
             icon: icon,
-            iconColor: iconColor,
+            iconColor: iconColor ?? Theme.of(context).colorScheme.primary,
             iconSize: iconSize,
           ),
           content: Text(
             contentText,
             style: TextStyle(
-              color: titleColor,
+              color: titleColor ?? Theme.of(context).colorScheme.onSurface,
             ),
           ),
           actions: [
             CCTextButton(
               text: nameNeutralButton.toUpperCase(),
-              textColor: colorNeutralButton,
+              textColor: colorNeutralButton ?? Theme.of(context).colorScheme.outline,
               onPressed: onPressedNeutralButton,
             ),
             CCTextButton(
               text: namePositiveButton.toUpperCase(),
-              textColor: colorPositiveButton,
+              textColor: colorPositiveButton ?? Theme.of(context).colorScheme.primary,
               onPressed: onPressedPositiveButton,
             ),
           ],

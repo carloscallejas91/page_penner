@@ -76,6 +76,9 @@ class LoginController extends GetxController {
   }
 
   void goToHome() {
-    Get.offAllNamed("/home");
+    Get.offAllNamed("/home", arguments: [
+      false,
+      _userCredential!.user,
+    ]);
   }
 }
