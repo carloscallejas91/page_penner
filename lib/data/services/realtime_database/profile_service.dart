@@ -1,27 +1,26 @@
 import "package:firebase_database/firebase_database.dart";
-import "package:page_penner/data/services/realtime_database/request/user_profile_update_request.dart";
+import "package:page_penner/data/services/realtime_database/request/profile_update_request.dart";
 
-class UserProfileService {
+class ProfileService {
   final FirebaseDatabase database = FirebaseDatabase.instance;
   late DatabaseReference databaseReference;
 
-  Future<(String?, bool)> updateProfileUser({
+  Future<(String?, bool)> updateProfile({
     required String path,
-    required UserProfileUpdateRequest request,
+    required ProfileUpdateRequest request,
   }) async {
-    late String message;
+    String? error;
     late bool result;
 
     databaseReference = database.ref(path);
 
     await databaseReference.set(request.toJson()).then((_) {
-      message = "Registro atualizado com sucesso.";
       result = true;
     }).catchError((e) {
-      message = "Ocorreu um erro! Tente novamente.";
+      error = e;
       result = false;
     });
 
-    return (message, result);
+    return (error, result);
   }
 }

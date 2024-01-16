@@ -18,22 +18,24 @@ class ForgetPasswordController extends GetxController {
   // controllers
   final TextEditingController emailController = TextEditingController();
 
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  Future<void> _resetPassword() async {
+    CCDialog.loadingWithText(message: "Enviando e-mail para redefinir sua senha...");
+
+    _authService.resetPassword(email: emailController.text).then((value) {
+      if (value == true) CCDialog.closeDialog();
+      CCSnackBar.success(message: "Você receberá em breve um e-mail com instruções de como redefinir sua senha.");
+    });
+  }
+
   void validateForm() {
     if (formKey.currentState!.validate()) {
       _resetPassword();
     }
-  }
-
-  Future<void> _resetPassword() async {
-    CCDialog.loadingWithText(
-        message: "Enviando e-mail para redefinir sua senha...");
-
-    _authService.resetPassword(email: emailController.text).then((value) {
-      if (value == true) CCDialog.closeDialog();
-      CCSnackBar.success(
-          message:
-              "Você receberá em breve um e-mail com instruções de como redefinir sua senha.");
-    });
   }
 
   void goToLogin() {

@@ -15,7 +15,7 @@ class SplashScreenController extends GetxController {
 
   Future<void> _isOnline() async {
     _user = await _authService.userIsLoggedIn();
-    if (_user != null) goToHome();
+    if (_user != null) goToMain();
   }
 
   void goToNewAccount() {
@@ -26,10 +26,7 @@ class SplashScreenController extends GetxController {
     Get.offAllNamed("/login");
   }
 
-  void goToHome() {
-    Get.offAllNamed("/home", arguments: [
-      false,
-      _user,
-    ]);
+  void goToMain() {
+    Get.offAllNamed("/main", arguments: [_user, 0]);
   }
 }

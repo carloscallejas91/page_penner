@@ -27,6 +27,33 @@ class LoginController extends GetxController {
   // User
   UserCredential? _userCredential;
 
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  Future<void> _login() async {
+    CCDialog.loadingWithText(message: "Realizando login...");
+
+    _authService.login(email: emailController.text, password: passwordController.text).then((value) {
+      _userCredential = value.$1;
+      if (_userCredential != null) {
+        CCDialog.closeDialog();
+        // CCSnackBar.success(message: value.$2);
+        goToMain();
+      } else {
+        CCDialog.closeDialog();
+        CCSnackBar.error(message: value.$2);
+      }
+    });
+  }
+
+  void validateForm() {
+    if (formKey.currentState!.validate()) {
+      _login();
+    }
+  }
+
   void togglePasswordVisibility() {
     if (obscureText.isTrue) {
       obscureText.value = false;
@@ -43,30 +70,6 @@ class LoginController extends GetxController {
     }
   }
 
-  void validateForm() {
-    if (formKey.currentState!.validate()) {
-      _login();
-    }
-  }
-
-  Future<void> _login() async {
-    CCDialog.loadingWithText(message: "Realizando login...");
-
-    _authService
-        .login(email: emailController.text, password: passwordController.text)
-        .then((value) {
-      _userCredential = value.$1;
-      if (_userCredential != null) {
-        CCDialog.closeDialog();
-        CCSnackBar.success(message: value.$2);
-        goToHome();
-      } else {
-        CCDialog.closeDialog();
-        CCSnackBar.error(message: value.$2);
-      }
-    });
-  }
-
   void goToCreateAccount() {
     Get.offAllNamed("/new_account");
   }
@@ -75,10 +78,7 @@ class LoginController extends GetxController {
     Get.offAllNamed("/forget_password");
   }
 
-  void goToHome() {
-    Get.offAllNamed("/home", arguments: [
-      false,
-      _userCredential!.user,
-    ]);
+  void goToMain() {
+    Get.offAllNamed("/main", arguments: [_userCredential!.user, 0]);
   }
 }

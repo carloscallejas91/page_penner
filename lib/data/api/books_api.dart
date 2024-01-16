@@ -1,3 +1,5 @@
+import "dart:developer";
+
 import "package:get/get.dart";
 import "package:page_penner/core/configs/config.dart";
 import "package:page_penner/core/rest/rest_http.dart";
@@ -9,7 +11,8 @@ class BooksApi {
 
   Future<BooksSearchResponse> getBooks(String title) async {
     final response = await _restHttp.make().get(
-        "q=intitle:$title&printType=books&orderBy=relevance&langRestrict=pt&maxResults=40&key=${Config.keyGoogleBooks}");
+        "q=$title&printType=books&orderBy=relevance&langRestrict=pt&maxResults=40&key=${Config.keyGoogleBooks}");
+        // "q=intitle:$title&printType=books&orderBy=relevance&langRestrict=pt&maxResults=40&key=${Config.keyGoogleBooks}");
 
     try {
       return BooksSearchResponse.fromRawJson(response.data as String);
