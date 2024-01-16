@@ -40,7 +40,7 @@ class AuthService {
     } catch (e) {
       return (null, "Ocorreu um erro! Tente novamente. $e");
     }
-    return (null, "");
+    return (null, "Ocorreu um erro! Tente novamente.");
   }
 
   Future<(UserCredential?, String)> login({
@@ -68,7 +68,7 @@ class AuthService {
       return (null, "Ocorreu um erro! Tente novamente. $e");
     }
 
-    return (null, "");
+    return (null, "Ocorreu um erro! Tente novamente.");
   }
 
   Future<bool> resetPassword({required String email}) async {

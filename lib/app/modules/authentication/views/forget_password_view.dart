@@ -20,8 +20,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
           flex: 1,
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 64, top: 32, right: 64, bottom: 16),
+              padding: const EdgeInsets.only(left: 64, top: 32, right: 64, bottom: 16),
               child: const Text(
                 "Em cada página, uma nova aventura se desenrola.",
               ).displaySmall().onPrimary(context),
@@ -39,8 +38,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 32, top: 64, right: 32, bottom: 16),
+              padding: const EdgeInsets.only(left: 32, top: 64, right: 32, bottom: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,14 +57,10 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                             TextFormField(
                               controller: controller.emailController,
                               keyboardType: TextInputType.emailAddress,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) => controller
-                                  .validateEntryUtils
-                                  .validateEmail(value!),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (value) => controller.validateEntryUtils.validateEmail(value!),
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                                 labelText: "E-mail",
                                 hintText: "exemplo@email.com",
                                 prefixIcon: const Icon(
@@ -77,8 +71,7 @@ class ForgetPasswordView extends GetView<ForgetPasswordController> {
                             Container(
                               alignment: Alignment.centerLeft,
                               padding: const EdgeInsets.only(top: 8),
-                              child: const Text(
-                                  "Informe o e-mail para o qual deseja redefinir a sua senha."),
+                              child: const Text("Informe o e-mail para o qual deseja redefinir a sua senha."),
                             ),
                           ],
                         ),

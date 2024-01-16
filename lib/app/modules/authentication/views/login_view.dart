@@ -20,8 +20,7 @@ class LoginView extends GetView<LoginController> {
           flex: 1,
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 64, top: 32, right: 64, bottom: 16),
+              padding: const EdgeInsets.only(left: 64, top: 32, right: 64, bottom: 16),
               child: const Text(
                 "Palavras escritas revelam mundos inexplorados.",
               ).displaySmall().onPrimary(context),
@@ -39,8 +38,7 @@ class LoginView extends GetView<LoginController> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 32, top: 64, right: 32, bottom: 16),
+              padding: const EdgeInsets.only(left: 32, top: 64, right: 32, bottom: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,14 +57,10 @@ class LoginView extends GetView<LoginController> {
                             TextFormField(
                               controller: controller.emailController,
                               keyboardType: TextInputType.emailAddress,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) => controller
-                                  .validateEntryUtils
-                                  .validateEmail(value!),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (value) => controller.validateEntryUtils.validateEmail(value!),
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                                 labelText: "E-mail",
                                 hintText: "exemplo@email.com",
                                 prefixIcon: const Icon(
@@ -80,21 +74,16 @@ class LoginView extends GetView<LoginController> {
                                 controller: controller.passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: controller.obscureText.value,
-                                validator: (value) => controller
-                                    .validateEntryUtils
-                                    .validatePassword(value!),
+                                validator: (value) => controller.validateEntryUtils.validatePassword(value!),
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                                   labelText: "Senha",
                                   hintText: "Mi@123456",
                                   prefixIcon: const Icon(
                                     FontAwesomeIcons.key,
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: controller.togglePasswordSuffixIcon(
-                                        isObscureText:
-                                            controller.obscureText.value),
+                                    icon: controller.togglePasswordSuffixIcon(isObscureText: controller.obscureText.value),
                                     onPressed: () {
                                       controller.togglePasswordVisibility();
                                     },

@@ -20,8 +20,7 @@ class NewAccountView extends GetView<NewAccountController> {
           flex: 1,
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 64, top: 32, right: 64, bottom: 16),
+              padding: const EdgeInsets.only(left: 64, top: 32, right: 64, bottom: 16),
               child: const Text(
                 "Ler é viajar sem sair do lugar.",
               ).displaySmall().onPrimary(context),
@@ -39,8 +38,7 @@ class NewAccountView extends GetView<NewAccountController> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 32, top: 64, right: 32, bottom: 16),
+              padding: const EdgeInsets.only(left: 32, top: 64, right: 32, bottom: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -59,12 +57,10 @@ class NewAccountView extends GetView<NewAccountController> {
                               children: [
                                 profileImageWidget(
                                   context: context,
-                                  hasImageSelected: controller
-                                      .profileImageFile.value.path.isNotEmpty,
+                                  hasImageSelected: controller.imagePath.value.path.isNotEmpty,
                                 ),
                                 TextButton(
-                                  onPressed: () => controller
-                                      .chooseImageCapture(context: context),
+                                  onPressed: () => controller.chooseImageCapture(context: context),
                                   child: const Text(
                                     "carregar imagem",
                                   ).bodySmall(),
@@ -81,14 +77,10 @@ class NewAccountView extends GetView<NewAccountController> {
                             TextFormField(
                               controller: controller.userNameController,
                               keyboardType: TextInputType.text,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) => controller
-                                  .validateEntryUtils
-                                  .validateName(value!),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (value) => controller.validateEntryUtils.validateName(value!),
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                                 labelText: "Nome",
                                 hintText: "Carlos Callejas",
                                 prefixIcon: const Icon(
@@ -100,14 +92,10 @@ class NewAccountView extends GetView<NewAccountController> {
                             TextFormField(
                               controller: controller.emailController,
                               keyboardType: TextInputType.emailAddress,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (value) => controller
-                                  .validateEntryUtils
-                                  .validateEmail(value!),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (value) => controller.validateEntryUtils.validateEmail(value!),
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                                 labelText: "E-mail",
                                 hintText: "exemplo@email.com",
                                 prefixIcon: const Icon(
@@ -121,23 +109,17 @@ class NewAccountView extends GetView<NewAccountController> {
                                 controller: controller.passwordController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: controller.obscureText.value,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                validator: (value) => controller
-                                    .validateEntryUtils
-                                    .validatePassword(value!),
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator: (value) => controller.validateEntryUtils.validatePassword(value!),
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20)),
+                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                                   labelText: "Senha",
                                   hintText: "Mi@123456",
                                   prefixIcon: const Icon(
                                     FontAwesomeIcons.key,
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: controller.togglePasswordSuffixIcon(
-                                        isObscureText:
-                                            controller.obscureText.value),
+                                    icon: controller.togglePasswordSuffixIcon(isObscureText: controller.obscureText.value),
                                     onPressed: () {
                                       controller.togglePasswordVisibility();
                                     },
@@ -173,14 +155,13 @@ class NewAccountView extends GetView<NewAccountController> {
     );
   }
 
-  Widget profileImageWidget(
-      {required BuildContext context, required bool hasImageSelected}) {
+  Widget profileImageWidget({required BuildContext context, required bool hasImageSelected}) {
     return hasImageSelected
         ? CircleAvatar(
             radius: 52,
             backgroundColor: Theme.of(context).colorScheme.primary,
             child: CircleAvatar(
-              backgroundImage: FileImage(controller.profileImageFile.value),
+              backgroundImage: FileImage(controller.imagePath.value),
               radius: 50.0,
             ),
           )
