@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
 import 'package:page_penner/app/modules/main/pages/book_shelf_page.dart';
+import 'package:page_penner/app/modules/main/pages/finished_reading_page.dart';
 import 'package:page_penner/app/modules/main/pages/home_page.dart';
+import 'package:page_penner/app/modules/main/pages/to_read_page.dart';
+import 'package:page_penner/app/widgets/dialog/cc_dialog.dart';
 import 'package:page_penner/app/widgets/snack_bar/cc_snack_bar.dart';
 import 'package:page_penner/core/utils/date_manager_utils.dart';
 import 'package:page_penner/core/utils/debounce_utils.dart';
@@ -53,8 +56,8 @@ class MainController extends GetxController {
   List<Widget> widgetOptions = <Widget>[
     const HomePage(),
     const BookShelfPage(),
-    const Text('Para Ler'),
-    const Text('Perfil'),
+    const ToReadPage(),
+    const FinishedReadingPage(),
   ];
 
   @override
@@ -172,6 +175,7 @@ class MainController extends GetxController {
     getBookShelf();
   }
 
+  //--> Distribuir livros para as listas <--//
   void distributeBooks() {
     for (var book in bookShelfList) {
       if (book.status == "Leitura concluída") {
@@ -193,6 +197,85 @@ class MainController extends GetxController {
   }
 
   //--> Funções da página Book Shelf (fim) <--//
+
+  //--> Funções da página To Read (Inicio) <--//
+  void displayToReadAlert(VolumeInformation book) {
+    CCDialog.dialogNeutralAndPositiveButton(
+      context: Get.context!,
+      title: "Iniciar leitura",
+      contentText: "Deseja iniciar leitura do livro?",
+      onPressedNeutralButton: Get.back,
+      nameNeutralButton: "Não",
+      onPressedPositiveButton: () async {
+        Get.back();
+        await changeToReadBooksStatus(book, "Em leitura");
+      },
+      namePositiveButton: "Iniciar",
+    );
+  }
+
+  void displayInReadingAlert(VolumeInformation book) {
+    CCDialog.dialogNeutralNegativeAndPositiveButton(
+      context: Get.context!,
+      title: "Em leitura",
+      contentText: "O que deseja fazer com o livro '${book.title}'?",
+      onPressedNeutralButton: Get.back,
+      nameNeutralButton: "Cancelar",
+      onPressedNegativeButton: () async {
+        Get.back();
+        await changeToReadBooksStatus(book, "Aguardando leitura");
+      },
+      nameNegativeButton: "Fila de leitura",
+      onPressedPositiveButton: () async {
+        Get.back();
+        await changeToReadBooksStatus(book, "Leitura concluída");
+      },
+      namePositiveButton: "Concluír livro",
+    );
+  }
+
+  Future<void> changeToReadBooksStatus(VolumeInformation book, String status) async {
+    await changeBookStatus(book, status).then((value) async {
+      if (value == true) {
+        await getBookShelf();
+      }
+    });
+  }
+
+  //-> Mudar o status do livro <--/
+  Future<bool> changeBookStatus(VolumeInformation book, String status) async {
+    bool result = false;
+    final request = _volumeInformationModel(book, status);
+
+    await _bookService.uploadBook(path: "users/${user.uid}/book_shelf/list/${book.id}", request: request).then((value) {
+      result = value.$2;
+    }).catchError((e) {
+      CCSnackBar.error(message: "Ocorreu um erro ao alterar o status do livro.");
+    });
+
+    return result;
+  }
+
+  //-> Preencher modelo <--/
+  VolumeInformation _volumeInformationModel(VolumeInformation item, String status) {
+    return VolumeInformation(
+      id: item.id,
+      title: item.title,
+      authors: item.authors,
+      publisher: item.publisher,
+      publishedDate: item.publishedDate,
+      pageCount: item.pageCount,
+      description: item.description,
+      imageLinks: item.imageLinks,
+      previewLink: item.previewLink,
+      infoLink: item.infoLink,
+      rating: item.rating!.isEmpty || item.rating == "null" ? "S/A" : item.rating,
+      status: status, // Livro na estante, Em leitura, Leitura Finalizada
+      myAnnotations: item.myAnnotations
+    );
+  }
+
+  //--> Funções da página To Read (Fim) <--//
 
   //--> Funções para tratar informações do livro (Início) <--//
   //--> Ajusta o número de páginas para um formato válido <--//

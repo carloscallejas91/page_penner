@@ -7,6 +7,7 @@ import "package:page_penner/app/widgets/snack_bar/cc_snack_bar.dart";
 import "package:page_penner/data/api/books_api.dart";
 import "package:page_penner/data/models/volume_information.dart";
 import "package:page_penner/data/services/realtime_database/book_service.dart";
+import "package:page_penner/routes/app_routes.dart";
 import 'package:url_launcher/url_launcher.dart';
 import "package:uuid/uuid.dart";
 
@@ -23,17 +24,24 @@ class BookInformationController extends GetxController {
   // Model
   late Rx<VolumeInformation> book = VolumeInformation().getDefaultValue().obs;
 
+  // Controller
+  TextEditingController annotationsController = TextEditingController();
+
   // Conditions
   RxBool loaded = false.obs;
   RxBool isFavorite = false.obs;
   RxBool isMyBook = false.obs;
-  RxBool bookIsOpen = false.obs;
+  RxBool toRead = false.obs;
   RxBool finishedReading = false.obs;
+  RxBool displayAnnotations = false.obs;
+  RxBool editingAnnotations = false.obs;
 
   // Skin
   RxInt footerSkin = 1.obs;
 
   // Strings
+  String? currentStatus;
+  String? currentAnnotations;
   late final String urlBook;
   late final String uuid;
 
@@ -55,13 +63,19 @@ class BookInformationController extends GetxController {
       loaded.value = true;
     } else if (myBook) {
       book.value = Get.arguments[1] as VolumeInformation;
+      currentAnnotations = book.value.myAnnotations;
+      currentStatus = book.value.status;
       uuid = book.value.id!;
       isMyBook.value = Get.arguments[3] as bool;
 
-      if (book.value.status == "Livro na estante") {
-        bookIsOpen.value = false;
-      } else {
-        bookIsOpen.value = true;
+      if (book.value.status == "Aguardando leitura") {
+        toRead.value = true;
+        finishedReading.value = false;
+      }
+
+      if (book.value.status == "Leitura concluída") {
+        finishedReading.value = true;
+        toRead.value = false;
       }
 
       footerSkin.value = 2;
@@ -85,7 +99,8 @@ class BookInformationController extends GetxController {
   Future<void> _getBookInformation() async {
     loaded.value = false;
     await booksApi.getBook(urlBook).then((value) {
-      book.value = _volumeInformationModel(uuid, value.volumeInformation!, "Lista de desejo");
+      currentStatus = "Lista de desejo";
+      book.value = _volumeInformationModel(id: uuid, item: value.volumeInformation!, status: "Lista de desejo");
     }).catchError((e) {
       CCSnackBar.error(message: "Ocorreu um erro ao tentar recuperar a lista de livros: $e");
     }).whenComplete(() => loaded.value = true);
@@ -146,25 +161,24 @@ class BookInformationController extends GetxController {
     }
   }
 
-  //-> Botão para adicionar ou remover livro da lista de 'Em leitura' <--/
+  //-> Botão para adicionar ou remover livro da lista de 'Aguardando leitura' <--/
   Future<void> changeStackOfBooksStatusButton() async {
-    switch (bookIsOpen.value) {
+    switch (toRead.value) {
       case true:
         await changeBookStatus("Livro na estante").then((value) async {
           if (value == true) {
-            bookIsOpen.value = false;
+            toRead.value = false;
           }
         });
       case false:
         await changeBookStatus("Aguardando leitura").then((value) {
           if (value == true) {
-            bookIsOpen.value = true;
-            // isFavorite.value = true;
+            toRead.value = true;
+            finishedReading.value = false;
           }
         });
     }
   }
-
 
   //-> Botão para adicionar ou remover livro da lista de 'Finalizados' <--/
   Future<void> changeFinishedBooksStatusButton() async {
@@ -179,14 +193,12 @@ class BookInformationController extends GetxController {
         await changeBookStatus("Leitura concluída").then((value) {
           if (value == true) {
             finishedReading.value = true;
-            bookIsOpen.value = false;
+            toRead.value = false;
             // isFavorite.value = true;
           }
         });
     }
   }
-
-
 
   //-> Botão que permite visualizar mais informações sobre o livro <--/
   Future<void> moreInformationButton(String uri) async {
@@ -331,9 +343,10 @@ class BookInformationController extends GetxController {
 
   //-> Adicionar um livro na estante <--/
   Future<bool> uploadBookToShelf() async {
-    final request = _volumeInformationModel(uuid, book.value, "Livro na estante");
+    final request = _volumeInformationModel(id: uuid, item: book.value, status: "Livro na estante");
     bool result = false;
     await _bookService.uploadBook(path: "users/${user.uid}/book_shelf/list/$uuid", request: request).then((value) {
+      currentStatus = "Livro na estante";
       result = value.$2;
     }).catchError((e) {
       CCSnackBar.error(message: "Ocorreu um erro ao tentar adicionar o livro na sua estante.");
@@ -355,9 +368,10 @@ class BookInformationController extends GetxController {
   //-> Mudar o status do livro <--/
   Future<bool> changeBookStatus(String status) async {
     bool result = false;
-    final request = _volumeInformationModel(uuid, book.value, status);
+    final request = _volumeInformationModel(id: uuid, item: book.value, status: status);
 
     await _bookService.uploadBook(path: "users/${user.uid}/book_shelf/list/$uuid", request: request).then((value) {
+      currentStatus = status;
       result = value.$2;
     }).catchError((e) {
       CCSnackBar.error(message: "Ocorreu um erro ao tentar adicionar o livro na lista de favoritos.");
@@ -369,7 +383,7 @@ class BookInformationController extends GetxController {
   //-> Adicionar um livro na lista de desejos <--/
   Future<bool> uploadBookToWishList() async {
     bool result = false;
-    final request = _volumeInformationModel(uuid, book.value, "Lista de desejo");
+    final request = _volumeInformationModel(id: uuid, item: book.value, status: "Lista de desejo");
 
     await _bookService.uploadBook(path: "users/${user.uid}/wish_list/list/$uuid", request: request).then((value) {
       result = value.$2;
@@ -392,7 +406,7 @@ class BookInformationController extends GetxController {
   }
 
   //-> Preencher modelo <--/
-  VolumeInformation _volumeInformationModel(String id, VolumeInformation item, String status) {
+  VolumeInformation _volumeInformationModel({required String id, required VolumeInformation item, String? status, String? annotations}) {
     return VolumeInformation(
       id: id,
       title: item.title,
@@ -405,18 +419,41 @@ class BookInformationController extends GetxController {
       previewLink: item.previewLink,
       infoLink: item.infoLink,
       rating: item.rating!.isEmpty || item.rating == "null" ? "S/A" : item.rating,
-      status: status, // Livro na estante, Em leitura, Leitura Finalizada
+      status: status ?? currentStatus,
+      myAnnotations: annotations ?? currentAnnotations ?? "Sem anotações...",
     );
+  }
+
+  void showAnnotations() {
+    displayAnnotations.value = true;
+  }
+
+  void editAnnotations(VolumeInformation book) {
+    editingAnnotations.value = true;
+
+    annotationsController.text = currentAnnotations!;
+  }
+
+  Future<void> saveAnnotations(VolumeInformation item) async {
+    final request = _volumeInformationModel(id: uuid, item: item, status: currentStatus, annotations: annotationsController.text);
+
+    await _bookService.uploadBook(path: "users/${user.uid}/book_shelf/list/$uuid", request: request).then((value) {
+      currentAnnotations = annotationsController.text;
+      editingAnnotations.value = false;
+      CCSnackBar.success(message: "Anotações salvas com sucesso.");
+    }).catchError((e) {
+      CCSnackBar.error(message: "Ocorreu um erro ao tentar salvar sua anotação");
+    });
   }
 
   //--> Rotas <--//
   void goToMain() {
     if (isFavorite.value) {
-      Get.offAllNamed("/main", arguments: [user, 0]);
+      Get.offAllNamed(Routes.MAIN, arguments: [user, 0]);
     } else if (isMyBook.value) {
-      Get.offAllNamed("/main", arguments: [user, 1]);
+      Get.offAllNamed(Routes.MAIN, arguments: [user, 1]);
     } else {
-      Get.offAllNamed("/main", arguments: [user, 0]);
+      Get.offAllNamed(Routes.MAIN, arguments: [user, 0]);
     }
   }
 }
