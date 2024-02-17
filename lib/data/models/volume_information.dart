@@ -13,6 +13,7 @@ class VolumeInformation {
   final String? infoLink;
   final String? status;
   final String? rating;
+  final String? myAnnotations;
 
   VolumeInformation({
     this.id,
@@ -27,6 +28,7 @@ class VolumeInformation {
     this.infoLink,
     this.status,
     this.rating,
+    this.myAnnotations,
   });
 
   VolumeInformation getDefaultValue() => VolumeInformation(
@@ -41,6 +43,7 @@ class VolumeInformation {
         infoLink: "...",
         status: "...",
         rating: "0",
+        myAnnotations: "Sem anotações...",
       );
 
   factory VolumeInformation.fromRawJson(String str) => VolumeInformation.fromJson(json.decode(str));
@@ -60,6 +63,7 @@ class VolumeInformation {
         infoLink: json["infoLink"],
         status: json["status"],
         rating: json["averageRating"].toString(),
+        myAnnotations: json["myAnnotations"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +79,7 @@ class VolumeInformation {
         "infoLink": infoLink,
         "status": status,
         "averageRating": rating,
+        "myAnnotations": myAnnotations,
       };
 }
 

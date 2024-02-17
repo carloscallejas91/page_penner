@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:page_penner/app/modules/main/controllers/main_controller.dart';
 import 'package:page_penner/app/modules/main/widgets/profile_header_widget.dart';
 import 'package:page_penner/core/values/strings.dart';
+import 'package:unicons/unicons.dart';
 
 class MainView extends GetView<MainController> {
   const MainView({super.key});
@@ -51,12 +52,12 @@ class MainView extends GetView<MainController> {
                   text: "Meus livros",
                 ),
                 GButton(
-                  icon: LineIcons.book,
+                  icon: LineIcons.bookReader,
                   text: "Para ler",
                 ),
                 GButton(
-                  icon: LineIcons.user,
-                  text: "Perfil",
+                  icon: UniconsLine.book,
+                  text: "Concluídos",
                 ),
               ],
               selectedIndex: controller.selectedIndex.value,

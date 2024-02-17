@@ -5,10 +5,12 @@ import "package:get/get.dart";
 import "package:page_penner/app/modules/main/widgets/book_avatar_widget.dart";
 import "package:page_penner/app/modules/volume_information/controllers/book_information_controller.dart";
 import "package:page_penner/app/widgets/button/cc_elevated_button.dart";
+import "package:page_penner/app/widgets/button/cc_text_button.dart";
 import "package:page_penner/app/widgets/circular_progress_indicator/cc_progress_indicator.dart";
 import "package:page_penner/core/extensions/text_extension.dart";
 import "package:page_penner/core/utils/date_manager_utils.dart";
 import "package:page_penner/core/values/strings.dart";
+import "package:page_penner/data/models/volume_information.dart";
 
 class BookInformationView extends GetView<BookInformationController> {
   const BookInformationView({Key? key}) : super(key: key);
@@ -34,8 +36,8 @@ class BookInformationView extends GetView<BookInformationController> {
         child: Obx(
           () => SafeArea(
             child: Visibility(
-              visible: controller.loaded.value,
-              replacement: const CCProgressIndicator(),
+              visible: controller.loaded.value && controller.displayAnnotations.value == false,
+              replacement: controller.displayAnnotations.value ? _myAnnotations(controller.book.value) : const CCProgressIndicator(),
               child: Column(
                 children: [
                   Padding(
@@ -71,13 +73,13 @@ class BookInformationView extends GetView<BookInformationController> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              itemDetail(
+                              _itemDetail(
                                 context,
                                 controller.book.value.pageCount.toString(),
                                 "Número de Páginas",
                               ),
                               const Text("|").onPrimary(context).opacity(.3),
-                              itemDetail(
+                              _itemDetail(
                                 context,
                                 DateManagerUtils.formatDate("${controller.book.value.publishedDate}"),
                                 "Data de Publicação",
@@ -100,21 +102,48 @@ class BookInformationView extends GetView<BookInformationController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text("Sobre o livro").titleMedium().secondaryContainer(context),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      FontAwesomeIcons.star,
-                                      size: 12,
-                                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                                    const Text("Sobre o livro").titleMedium().secondaryContainer(context),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.star,
+                                          size: 12,
+                                          color: Theme.of(context).colorScheme.tertiaryContainer,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Text(controller.book.value.rating!).titleMedium().secondaryContainer(context),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Visibility(
+                                      visible: controller.isMyBook.value,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.sticky_note_2,
+                                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                        ),
+                                        onPressed: () => controller.showAnnotations(),
+                                      ),
                                     ),
                                     const SizedBox(width: 4),
-                                    Text(controller.book.value.rating!).titleMedium().secondaryContainer(context),
+                                    IconButton(
+                                      icon: Icon(
+                                        Icons.share,
+                                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                      ),
+                                      onPressed: () {},
+                                    ),
                                   ],
                                 ),
                               ],
@@ -129,7 +158,7 @@ class BookInformationView extends GetView<BookInformationController> {
                       ),
                     ),
                   ),
-                  controller.footerSkin.value == 1 ? defaultSkin(context) : myBookSkin(context),
+                  controller.footerSkin.value == 1 ? _defaultSkin(context) : _myBookSkin(context),
                 ],
               ),
             ),
@@ -139,7 +168,7 @@ class BookInformationView extends GetView<BookInformationController> {
     );
   }
 
-  Expanded defaultSkin(BuildContext context) {
+  Expanded _defaultSkin(BuildContext context) {
     return Expanded(
       flex: 0,
       child: Container(
@@ -179,7 +208,6 @@ class BookInformationView extends GetView<BookInformationController> {
                   ),
                   onPressed: () {
                     controller.displayAlertBookShelf(context, controller.isMyBook.value, controller.book.value);
-                    // addOrRemoveBookShelf(context, controller.myBook.value, controller.book.value);
                   },
                 ),
               ),
@@ -190,7 +218,7 @@ class BookInformationView extends GetView<BookInformationController> {
               child: CCElevatedButton(
                 buttonColor: Theme.of(context).colorScheme.primary,
                 textColor: Theme.of(context).colorScheme.onPrimary,
-                textButton: "Mais informações",
+                textButton: "Informações ",
                 icon: FontAwesomeIcons.arrowRightLong,
                 onPressed: () {
                   controller.moreInformationButton(controller.book.value.infoLink.toString());
@@ -203,7 +231,7 @@ class BookInformationView extends GetView<BookInformationController> {
     );
   }
 
-  Expanded myBookSkin(BuildContext context) {
+  Expanded _myBookSkin(BuildContext context) {
     return Expanded(
       flex: 0,
       child: Container(
@@ -225,7 +253,6 @@ class BookInformationView extends GetView<BookInformationController> {
                   ),
                   onPressed: () {
                     controller.displayAlertBookShelf(context, controller.isMyBook.value, controller.book.value);
-                    // addOrRemoveBookShelf(context, controller.myBook.value, controller.book.value);
                   },
                 ),
               ),
@@ -238,13 +265,13 @@ class BookInformationView extends GetView<BookInformationController> {
                 child: IconButton(
                   icon: Obx(
                     () => Icon(
-                      controller.bookIsOpen.value ? FontAwesomeIcons.bookOpen : EvaIcons.bookOpenOutline,
+                      controller.toRead.value ? FontAwesomeIcons.bookOpen : EvaIcons.bookOpenOutline,
                       color: Theme.of(context).colorScheme.tertiaryContainer,
                     ),
                   ),
                   onPressed: () {
                     //displayReadBookAlert
-                    controller.displayReadBookAlert(context, controller.bookIsOpen.value, controller.book.value);
+                    controller.displayReadBookAlert(context, controller.toRead.value, controller.book.value);
                   },
                 ),
               ),
@@ -256,7 +283,7 @@ class BookInformationView extends GetView<BookInformationController> {
                 backgroundColor: Theme.of(context).colorScheme.tertiary,
                 child: IconButton(
                   icon: Obx(
-                        () => Icon(
+                    () => Icon(
                       controller.finishedReading.value ? EvaIcons.book : EvaIcons.bookOutline,
                       color: Theme.of(context).colorScheme.tertiaryContainer,
                     ),
@@ -273,7 +300,7 @@ class BookInformationView extends GetView<BookInformationController> {
               child: CCElevatedButton(
                 buttonColor: Theme.of(context).colorScheme.primary,
                 textColor: Theme.of(context).colorScheme.onPrimary,
-                textButton: "Mais informações",
+                textButton: "Informações ",
                 icon: FontAwesomeIcons.arrowRightLong,
                 onPressed: () {
                   controller.moreInformationButton(controller.book.value.infoLink.toString());
@@ -286,7 +313,7 @@ class BookInformationView extends GetView<BookInformationController> {
     );
   }
 
-  Expanded itemDetail(BuildContext context, String value, String label) {
+  Expanded _itemDetail(BuildContext context, String value, String label) {
     return Expanded(
       flex: 1,
       child: Column(
@@ -295,6 +322,92 @@ class BookInformationView extends GetView<BookInformationController> {
           Text(label).bodySmall().onPrimary(context).center(),
         ],
       ),
+    );
+  }
+
+  Widget _myAnnotations(VolumeInformation book) {
+    return Column(
+      children: [
+        Container(height: 4, color: Theme.of(Get.context!).colorScheme.primary),
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Theme.of(Get.context!).colorScheme.inverseSurface,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Minhas anotações").titleMedium().secondaryContainer(Get.context!),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit_note,
+                              color: Theme.of(Get.context!).colorScheme.onPrimaryContainer,
+                            ),
+                            onPressed: () => controller.editAnnotations(book),
+                          ),
+                          const SizedBox(width: 4),
+                          IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color: Theme.of(Get.context!).colorScheme.onPrimaryContainer,
+                            ),
+                            onPressed: () => controller.displayAnnotations.value = false,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Visibility(
+                    visible: controller.editingAnnotations.value,
+                    replacement: Text(
+                      controller.currentAnnotations ?? "Sem anotações"
+                    ).onPrimary(Get.context!),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: controller.annotationsController,
+                          maxLines: null,
+                          keyboardType: TextInputType.multiline,
+                          style: TextStyle(color: Theme.of(Get.context!).colorScheme.onInverseSurface),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CCTextButton(
+                              text: "Cancelar".toUpperCase(),
+                              textColor: Theme.of(Get.context!).colorScheme.onPrimaryContainer,
+                              onPressed: () => controller.editingAnnotations.value = false,
+                            ),
+                            const SizedBox(width: 8),
+                            SizedBox(
+                              width: 200,
+                              child: CCElevatedButton(
+                                textButton: "Salvar",
+                                buttonColor: Theme.of(Get.context!).colorScheme.primary,
+                                textColor: Theme.of(Get.context!).colorScheme.onPrimary,
+                                onPressed: () => controller.saveAnnotations(book),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
